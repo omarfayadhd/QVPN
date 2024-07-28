@@ -1,16 +1,15 @@
 # ______________________________________________________________
 # PRODUCT : Q VPN
 
-# NAME    : ui_main.py [MAIN SCREEN UI]
+# NAME    : ui_main.py [MAIN UI]
 
 # AUTHORS : ANANDAN , OMAR , SREERAG
 
-# CHANGES IN THIS FILE ARE PROHIBITED
+# CHANGES TO THIS FILE ARE PROHIBITED
 # _______________________________________________________________
-
-from PySide6.QtCore import *
-from PySide6.QtGui import *
-from PySide6.QtWidgets import *
+from PySide2.QtCore import *
+from PySide2.QtGui import *
+from PySide2.QtWidgets import *
 
 
 class Ui_MainWindow(object):
@@ -24,7 +23,7 @@ class Ui_MainWindow(object):
         self.top_bar = QFrame(self.centralwidget)
         self.top_bar.setObjectName(u"top_bar")
         self.top_bar.setGeometry(QRect(0, 0, 801, 41))
-        self.top_bar.setStyleSheet(u"background-color: rgb(34, 31, 14);")
+        self.top_bar.setStyleSheet(u"background-color: rgb(43, 5, 83);")
         self.top_bar.setFrameShape(QFrame.NoFrame)
         self.top_bar.setFrameShadow(QFrame.Raised)
         self.Logo = QLabel(self.top_bar)
@@ -34,7 +33,7 @@ class Ui_MainWindow(object):
         font.setFamily(u"AvenirNext LT Pro Bold")
         font.setPointSize(16)
         font.setBold(True)
-        font.setWeight(QFont.Bold)
+        font.setWeight(75)
         self.Logo.setFont(font)
         self.Logo.setStyleSheet(u"QLabel{\n"
 "\n"
@@ -76,6 +75,30 @@ class Ui_MainWindow(object):
 "	background-color: rgb(255, 255, 0);\n"
 "\n"
 "}")
+        self.ref = QPushButton(self.top_bar)
+        self.ref.setObjectName(u"ref")
+        self.ref.setGeometry(QRect(760, 10, 20, 20))
+        self.ref.setStyleSheet(u"QPushButton {\n"
+"\n"
+"\n"
+" background-color : transparent; \n"
+"border-radius: 10px;\n"
+"\n"
+" }\n"
+"\n"
+"QPushButton:hover{\n"
+"\n"
+"	\n"
+"	\n"
+"	background-color: rgb(201, 230, 247);\n"
+"};\n"
+"\n"
+"")
+        icon = QIcon()
+        icon.addFile(u"resources/refresh.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.ref.setIcon(icon)
+        self.ref.setIconSize(QSize(24, 16))
+        self.ref.setAutoExclusive(False)
         self.stackedWidget = QStackedWidget(self.centralwidget)
         self.stackedWidget.setObjectName(u"stackedWidget")
         self.stackedWidget.setGeometry(QRect(0, 40, 801, 561))
@@ -84,8 +107,12 @@ class Ui_MainWindow(object):
         self.back_img_1 = QLabel(self.page_1)
         self.back_img_1.setObjectName(u"back_img_1")
         self.back_img_1.setGeometry(QRect(0, 0, 801, 561))
-        self.back_img_1.setPixmap(QPixmap(u"resources/vpnbg.png"))
+        font1 = QFont()
+        font1.setFamily(u"AvenirNext LT Pro Regular")
+        self.back_img_1.setFont(font1)
+        self.back_img_1.setPixmap(QPixmap(u"resources/mainui1.png"))
         self.back_img_1.setScaledContents(True)
+        self.back_img_1.setAlignment(Qt.AlignCenter)
         self.connect_Btn = QPushButton(self.page_1)
         self.connect_Btn.setObjectName(u"connect_Btn")
         self.connect_Btn.setGeometry(QRect(320, 190, 160, 160))
@@ -101,78 +128,52 @@ class Ui_MainWindow(object):
 "	background-color: rgb(48, 154, 38);\n"
 "\n"
 "}\n"
+"QPushButton:pressed{\n"
+"\n"
+"	background-color: rgb(0, 170, 0);\n"
+"\n"
+"\n"
+"}\n"
 "")
-        icon = QIcon()
-        icon.addFile(u"resources/power.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.connect_Btn.setIcon(icon)
+        icon1 = QIcon()
+        icon1.addFile(u"resources/power.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.connect_Btn.setIcon(icon1)
         self.connect_Btn.setIconSize(QSize(150, 150))
-        self.ip_label = QLabel(self.page_1)
-        self.ip_label.setObjectName(u"ip_label")
-        self.ip_label.setGeometry(QRect(10, 30, 111, 21))
-        font1 = QFont()
-        font1.setFamily(u"AvenirNext LT Pro Bold")
-        font1.setBold(True)
-        font1.setWeight(QFont.Bold)
-        self.ip_label.setFont(font1)
-        self.ip_label.setStyleSheet(u"background-color: rgba(0,0,0,0%)")
-        self.ip_label.setAlignment(Qt.AlignJustify|Qt.AlignVCenter)
-        self.iptext = QPlainTextEdit(self.page_1)
-        self.iptext.setObjectName(u"iptext")
-        self.iptext.setGeometry(QRect(120, 30, 131, 21))
-        palette = QPalette()
-        brush = QBrush(QColor(0, 0, 0, 0))
-        brush.setStyle(Qt.SolidPattern)
-        palette.setBrush(QPalette.Active, QPalette.Button, brush)
-        brush1 = QBrush(QColor(255, 255, 255, 255))
-        brush1.setStyle(Qt.SolidPattern)
-        palette.setBrush(QPalette.Active, QPalette.Text, brush1)
-        palette.setBrush(QPalette.Active, QPalette.ButtonText, brush1)
-        brush2 = QBrush(QColor(0, 0, 0, 255))
-        brush2.setStyle(Qt.NoBrush)
-        palette.setBrush(QPalette.Active, QPalette.Base, brush2)
-        palette.setBrush(QPalette.Active, QPalette.Window, brush)
-        palette.setBrush(QPalette.Inactive, QPalette.Button, brush)
-        palette.setBrush(QPalette.Inactive, QPalette.Text, brush1)
-        palette.setBrush(QPalette.Inactive, QPalette.ButtonText, brush1)
-        brush3 = QBrush(QColor(0, 0, 0, 255))
-        brush3.setStyle(Qt.NoBrush)
-        palette.setBrush(QPalette.Inactive, QPalette.Base, brush3)
-        palette.setBrush(QPalette.Inactive, QPalette.Window, brush)
-        palette.setBrush(QPalette.Disabled, QPalette.Button, brush)
-        brush4 = QBrush(QColor(120, 120, 120, 255))
-        brush4.setStyle(Qt.SolidPattern)
-        palette.setBrush(QPalette.Disabled, QPalette.Text, brush4)
-        palette.setBrush(QPalette.Disabled, QPalette.ButtonText, brush4)
-        brush5 = QBrush(QColor(0, 0, 0, 255))
-        brush5.setStyle(Qt.NoBrush)
-        palette.setBrush(QPalette.Disabled, QPalette.Base, brush5)
-        palette.setBrush(QPalette.Disabled, QPalette.Window, brush)
-        self.iptext.setPalette(palette)
+        self.crnt_ip = QLabel(self.page_1)
+        self.crnt_ip.setObjectName(u"crnt_ip")
+        self.crnt_ip.setGeometry(QRect(10, 30, 111, 31))
         font2 = QFont()
-        font2.setFamily(u"CrashNumberingGothic")
-        font2.setPointSize(12)
-        self.iptext.setFont(font2)
-        self.iptext.setStyleSheet(u"QPlainTextEdit\n"
-"{\n"
-"background-color: rgba(0,0,0,0%);\n"
-"border-radius: 0px;\n"
-"}")
-        self.iptext.setLineWidth(0)
-        self.iptext.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.iptext.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.iptext.setSizeAdjustPolicy(QAbstractScrollArea.AdjustIgnored)
-        self.iptext.setReadOnly(True)
-        self.iptext.setBackgroundVisible(True)
+        font2.setFamily(u"AvenirNext LT Pro Bold")
+        font2.setPointSize(11)
+        font2.setBold(True)
+        font2.setWeight(75)
+        self.crnt_ip.setFont(font2)
+        self.crnt_ip.setStyleSheet(u"QLabel {\n"
+"\n"
+"\n"
+" background-color : transparent; \n"
+"	\n"
+"	\n"
+"	\n"
+"	\n"
+"	\n"
+"	color: rgb(255, 255, 255);\n"
+" };")
+        self.crnt_ip.setAlignment(Qt.AlignCenter)
         self.tor_label = QLabel(self.page_1)
         self.tor_label.setObjectName(u"tor_label")
-        self.tor_label.setGeometry(QRect(710, 30, 31, 21))
-        self.tor_label.setFont(font1)
+        self.tor_label.setGeometry(QRect(740, 40, 31, 21))
+        font3 = QFont()
+        font3.setFamily(u"AvenirNext LT Pro Bold")
+        font3.setBold(True)
+        font3.setWeight(75)
+        self.tor_label.setFont(font3)
         self.tor_label.setStyleSheet(u"QLabel{\n"
 "background: transparent\n"
 "}")
         self.Tor_Btn = QPushButton(self.page_1)
         self.Tor_Btn.setObjectName(u"Tor_Btn")
-        self.Tor_Btn.setGeometry(QRect(750, 20, 41, 40))
+        self.Tor_Btn.setGeometry(QRect(690, 30, 41, 40))
         self.Tor_Btn.setStyleSheet(u"QPushButton{\n"
 "\n"
 "background-color: rgba(255, 255, 255, 0);\n"
@@ -181,22 +182,28 @@ class Ui_MainWindow(object):
 "\n"
 "QPushButton:hover{\n"
 "\n"
-"	background-color: rgb(255, 255, 255);\n"
+"	\n"
+"	background-color: rgb(125, 70, 152);\n"
+"}\n"
+"QPushButton:pressed{\n"
+"\n"
+"	background-color: rgb(168, 132, 186);\n"
+"\n"
 "}")
-        icon1 = QIcon()
-        icon1.addFile(u"resources/emojipng.com-2364600.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.Tor_Btn.setIcon(icon1)
+        icon2 = QIcon()
+        icon2.addFile(u"resources/tor_br.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.Tor_Btn.setIcon(icon2)
         self.Tor_Btn.setIconSize(QSize(35, 35))
         self.speed_label = QLabel(self.page_1)
         self.speed_label.setObjectName(u"speed_label")
-        self.speed_label.setGeometry(QRect(650, 90, 91, 16))
-        self.speed_label.setFont(font1)
+        self.speed_label.setGeometry(QRect(700, 490, 91, 16))
+        self.speed_label.setFont(font3)
         self.speed_label.setStyleSheet(u"QLabel{\n"
 "background: transparent\n"
 "}")
         self.speed_Test = QPushButton(self.page_1)
         self.speed_Test.setObjectName(u"speed_Test")
-        self.speed_Test.setGeometry(QRect(750, 80, 40, 40))
+        self.speed_Test.setGeometry(QRect(650, 480, 40, 40))
         self.speed_Test.setStyleSheet(u"QPushButton{\n"
 "\n"
 "background-color: rgba(255, 255, 255, 0);\n"
@@ -209,11 +216,16 @@ class Ui_MainWindow(object):
 "	\n"
 "	\n"
 "	\n"
-"	background-color: rgb(255, 255, 255);\n"
+"	\n"
+"	background-color: rgb(53, 79, 79);\n"
+"}\n"
+"QPushButton:pressed{\n"
+"	background-color: rgb(85, 85, 0);\n"
+"\n"
 "}")
-        icon2 = QIcon()
-        icon2.addFile(u"resources/PngItem_3774350.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.speed_Test.setIcon(icon2)
+        icon3 = QIcon()
+        icon3.addFile(u"resources/speed (1).png", QSize(), QIcon.Normal, QIcon.Off)
+        self.speed_Test.setIcon(icon3)
         self.speed_Test.setIconSize(QSize(35, 35))
         self.off_btn = QPushButton(self.page_1)
         self.off_btn.setObjectName(u"off_btn")
@@ -230,14 +242,62 @@ class Ui_MainWindow(object):
 "	background-color: rgb(255, 0, 0);\n"
 "\n"
 "}\n"
+"QPushButton:pressed{\n"
+"\n"
+"	background-color: rgb(85, 0, 0);\n"
+"\n"
+"}\n"
 "")
-        icon3 = QIcon()
-        icon3.addFile(u"resources/powerbutton.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.off_btn.setIcon(icon3)
+        icon4 = QIcon()
+        icon4.addFile(u"resources/powerbutton.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.off_btn.setIcon(icon4)
         self.off_btn.setIconSize(QSize(150, 150))
+        self.sp_label = QLabel(self.page_1)
+        self.sp_label.setObjectName(u"sp_label")
+        self.sp_label.setGeometry(QRect(430, 450, 171, 41))
+        font4 = QFont()
+        font4.setFamily(u"AvenirNext LT Pro Bold")
+        font4.setPointSize(12)
+        font4.setBold(True)
+        font4.setWeight(75)
+        self.sp_label.setFont(font4)
+        self.sp_label.setStyleSheet(u"QLabel {\n"
+"\n"
+"\n"
+" background-color : transparent; \n"
+"\n"
+"	\n"
+"	\n"
+"	\n"
+"	\n"
+"	\n"
+"	\n"
+"	\n"
+"	color: rgb(120, 205, 212);\n"
+" };\n"
+"")
+        self.sp_label.setAlignment(Qt.AlignCenter)
+        self.time_label = QLabel(self.page_1)
+        self.time_label.setObjectName(u"time_label")
+        self.time_label.setGeometry(QRect(270, 150, 251, 31))
+        self.time_label.setFont(font4)
+        self.time_label.setStyleSheet(u"QLabel {\n"
+"\n"
+"\n"
+" background-color : transparent; \n"
+"\n"
+"	\n"
+"	\n"
+"	\n"
+"	\n"
+"	color: rgb(50, 215, 54);\n"
+" };\n"
+"")
+        self.time_label.setAlignment(Qt.AlignCenter)
         self.btn_about = QPushButton(self.page_1)
         self.btn_about.setObjectName(u"btn_about")
-        self.btn_about.setGeometry(QRect(680, 500, 40, 40))
+        self.btn_about.setEnabled(True)
+        self.btn_about.setGeometry(QRect(70, 480, 40, 40))
         self.btn_about.setStyleSheet(u"QPushButton{\n"
 "\n"
 "background-color: rgba(255, 255, 255, 0);\n"
@@ -246,20 +306,198 @@ class Ui_MainWindow(object):
 "\n"
 "QPushButton:hover{\n"
 "\n"
+"	background-color: rgb(201, 230, 247);\n"
+"\n"
+"\n"
+"\n"
+"}\n"
+"QPushButton:pressed{\n"
+"	background-color: rgb(102, 204, 255);\n"
+"\n"
+"}\n"
+"")
+        icon5 = QIcon()
+        icon5.addFile(u"resources/information.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_about.setIcon(icon5)
+        self.btn_about.setIconSize(QSize(25, 25))
+        self.label = QLabel(self.page_1)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(10, 480, 61, 31))
+        self.label.setFont(font3)
+        self.label.setStyleSheet(u"QLabel{\n"
+"\n"
+"\n"
+"background:transparent;\n"
+"\n"
+"\n"
+"\n"
+"}\n"
+"")
+        self.label.setAlignment(Qt.AlignCenter)
+        self.except_lbl = QLabel(self.page_1)
+        self.except_lbl.setObjectName(u"except_lbl")
+        self.except_lbl.setGeometry(QRect(240, 10, 301, 51))
+        self.except_lbl.setFont(font2)
+        self.except_lbl.setStyleSheet(u"QLabel{\n"
+"\n"
+"background:transparent;\n"
 "	\n"
-"	\n"
-"	\n"
-"	\n"
-"	background-color: rgb(255, 255, 255);\n"
+"	color: rgb(255, 0, 0);\n"
+"\n"
 "}")
-        icon4 = QIcon()
-        icon4.addFile(u"resources/icons8-about-48.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_about.setIcon(icon4)
-        self.btn_about.setIconSize(QSize(30, 30))
-        self.btn_faq = QPushButton(self.page_1)
-        self.btn_faq.setObjectName(u"btn_faq")
-        self.btn_faq.setGeometry(QRect(740, 500, 40, 40))
-        self.btn_faq.setStyleSheet(u"QPushButton{\n"
+        self.except_lbl.setAlignment(Qt.AlignCenter)
+        self.dwnld_label = QLabel(self.page_1)
+        self.dwnld_label.setObjectName(u"dwnld_label")
+        self.dwnld_label.setGeometry(QRect(610, 460, 31, 31))
+        self.dwnld_label.setStyleSheet(u"QLabel{\n"
+"\n"
+"\n"
+"background:transparent;\n"
+"\n"
+"\n"
+"}")
+        self.dwnld_label.setPixmap(QPixmap(u"resources/dwnld.png"))
+        self.dwnld_label.setScaledContents(True)
+        self.upnld_label = QLabel(self.page_1)
+        self.upnld_label.setObjectName(u"upnld_label")
+        self.upnld_label.setGeometry(QRect(610, 510, 31, 31))
+        self.upnld_label.setStyleSheet(u"QLabel{\n"
+"\n"
+"\n"
+"background:transparent;\n"
+"\n"
+"\n"
+"}")
+        self.upnld_label.setPixmap(QPixmap(u"resources/upnld.png"))
+        self.upnld_label.setScaledContents(True)
+        self.upnld_label.setAlignment(Qt.AlignCenter)
+        self.su_label = QLabel(self.page_1)
+        self.su_label.setObjectName(u"su_label")
+        self.su_label.setGeometry(QRect(430, 500, 171, 41))
+        self.su_label.setFont(font4)
+        self.su_label.setStyleSheet(u"QLabel {\n"
+"\n"
+"\n"
+" background-color : transparent; \n"
+"\n"
+"	\n"
+"	\n"
+"	\n"
+"	color: rgb(246, 146, 114);\n"
+"	\n"
+"	\n"
+" };\n"
+"")
+        self.su_label.setAlignment(Qt.AlignCenter)
+        self.C_label = QLabel(self.page_1)
+        self.C_label.setObjectName(u"C_label")
+        self.C_label.setGeometry(QRect(380, 110, 31, 31))
+        self.C_label.setStyleSheet(u"QLabel {\n"
+"\n"
+"\n"
+" background-color : transparent; \n"
+" };\n"
+"")
+        self.C_label.setPixmap(QPixmap(u"resources/stopwatch.png"))
+        self.C_label.setScaledContents(True)
+        self.pop_btn = QPushButton(self.page_1)
+        self.pop_btn.setObjectName(u"pop_btn")
+        self.pop_btn.setGeometry(QRect(330, 350, 41, 40))
+        self.pop_btn.setStyleSheet(u"QPushButton{\n"
+"\n"
+"background-color: rgba(255, 255, 255, 0);\n"
+"border-radius: 20px;\n"
+"}\n"
+"\n"
+"\n"
+"QPushButton:hover{\n"
+"\n"
+"	\n"
+"	background-color: rgb(169, 0, 51);\n"
+"\n"
+"\n"
+"}\n"
+"QPushButton:pressed{\n"
+"\n"
+"	\n"
+"	background-color: rgb(252, 66, 66);\n"
+"\n"
+"\n"
+"}\n"
+"\n"
+"")
+        icon6 = QIcon()
+        icon6.addFile(u"resources/ad-blocker.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.pop_btn.setIcon(icon6)
+        self.pop_btn.setIconSize(QSize(35, 35))
+        self.pop_label = QLabel(self.page_1)
+        self.pop_label.setObjectName(u"pop_label")
+        self.pop_label.setGeometry(QRect(380, 350, 101, 41))
+        font5 = QFont()
+        font5.setFamily(u"AvenirNext LT Pro Bold")
+        font5.setPointSize(10)
+        font5.setBold(True)
+        font5.setWeight(75)
+        self.pop_label.setFont(font5)
+        self.pop_label.setStyleSheet(u"QLabel{\n"
+"\n"
+"background:transparent;\n"
+"\n"
+"}")
+        self.pop_label.setAlignment(Qt.AlignCenter)
+        self.ext_btn = QLabel(self.page_1)
+        self.ext_btn.setObjectName(u"ext_btn")
+        self.ext_btn.setGeometry(QRect(130, 30, 141, 31))
+        font6 = QFont()
+        font6.setFamily(u"Avenir Next LT Pro")
+        font6.setPointSize(12)
+        font6.setBold(True)
+        font6.setWeight(75)
+        self.ext_btn.setFont(font6)
+        self.ext_btn.setStyleSheet(u"QLabel {\n"
+"\n"
+"\n"
+" background-color : transparent; \n"
+"	\n"
+"	\n"
+"	\n"
+"	\n"
+"	color: rgb(50, 215, 54);\n"
+" };")
+        self.ext_btn.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.ext_btn.setWordWrap(False)
+        self.ext_btn.setOpenExternalLinks(True)
+        self.stackedWidget.addWidget(self.page_1)
+        self.back_img_1.raise_()
+        self.crnt_ip.raise_()
+        self.tor_label.raise_()
+        self.Tor_Btn.raise_()
+        self.speed_label.raise_()
+        self.speed_Test.raise_()
+        self.off_btn.raise_()
+        self.connect_Btn.raise_()
+        self.sp_label.raise_()
+        self.time_label.raise_()
+        self.btn_about.raise_()
+        self.label.raise_()
+        self.except_lbl.raise_()
+        self.dwnld_label.raise_()
+        self.upnld_label.raise_()
+        self.su_label.raise_()
+        self.C_label.raise_()
+        self.pop_btn.raise_()
+        self.pop_label.raise_()
+        self.ext_btn.raise_()
+        self.page_3 = QWidget()
+        self.page_3.setObjectName(u"page_3")
+        self.back_img_3 = QLabel(self.page_3)
+        self.back_img_3.setObjectName(u"back_img_3")
+        self.back_img_3.setGeometry(QRect(0, 0, 801, 561))
+        self.back_img_3.setPixmap(QPixmap(u"resources/Aboutui1.png"))
+        self.btn_home_2 = QPushButton(self.page_3)
+        self.btn_home_2.setObjectName(u"btn_home_2")
+        self.btn_home_2.setGeometry(QRect(20, 20, 40, 40))
+        self.btn_home_2.setStyleSheet(u"QPushButton{\n"
 "\n"
 "background-color: rgba(255, 255, 255, 0);\n"
 "border-radius: 20px;\n"
@@ -272,81 +510,22 @@ class Ui_MainWindow(object):
 "	\n"
 "	\n"
 "	background-color: rgb(255, 255, 255);\n"
-"}")
-        icon5 = QIcon()
-        icon5.addFile(u"resources/faq.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_faq.setIcon(icon5)
-        self.btn_faq.setIconSize(QSize(30, 30))
-        self.stackedWidget.addWidget(self.page_1)
-        self.back_img_1.raise_()
-        self.ip_label.raise_()
-        self.iptext.raise_()
-        self.tor_label.raise_()
-        self.Tor_Btn.raise_()
-        self.speed_label.raise_()
-        self.speed_Test.raise_()
-        self.off_btn.raise_()
-        self.connect_Btn.raise_()
-        self.btn_about.raise_()
-        self.btn_faq.raise_()
-        self.page_2 = QWidget()
-        self.page_2.setObjectName(u"page_2")
-        self.back_img_2 = QLabel(self.page_2)
-        self.back_img_2.setObjectName(u"back_img_2")
-        self.back_img_2.setGeometry(QRect(0, 0, 801, 561))
-        self.back_img_2.setPixmap(QPixmap(u"resources/marjan-blan-marjanblan-6bXvYyAYVrE-unsplash.jpg"))
-        self.back_img_2.setScaledContents(True)
-        self.btn_home_1 = QPushButton(self.page_2)
-        self.btn_home_1.setObjectName(u"btn_home_1")
-        self.btn_home_1.setGeometry(QRect(10, 30, 50, 50))
-        self.btn_home_1.setStyleSheet(u"QPushButton{\n"
-"\n"
-"background-color: rgba(255, 255, 255, 0);\n"
-"border-radius: 25px;\n"
 "}\n"
+"QPushButton:pressed{\n"
+"	\n"
+"	background-color: rgb(0, 0, 0);\n"
 "\n"
-"QPushButton:hover{\n"
-"\n"
-"	\n"
-"	\n"
-"	\n"
-"	\n"
-"	background-color: rgb(255, 255, 255);\n"
 "}")
-        icon6 = QIcon()
-        icon6.addFile(u"resources/home.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_home_1.setIcon(icon6)
-        self.btn_home_1.setIconSize(QSize(35, 35))
-        self.stackedWidget.addWidget(self.page_2)
-        self.page_3 = QWidget()
-        self.page_3.setObjectName(u"page_3")
-        self.back_img_3 = QLabel(self.page_3)
-        self.back_img_3.setObjectName(u"back_img_3")
-        self.back_img_3.setGeometry(QRect(0, 0, 801, 561))
-        self.back_img_3.setPixmap(QPixmap(u"resources/2028632.jpg"))
-        self.btn_home_2 = QPushButton(self.page_3)
-        self.btn_home_2.setObjectName(u"btn_home_2")
-        self.btn_home_2.setGeometry(QRect(10, 30, 50, 50))
-        self.btn_home_2.setStyleSheet(u"QPushButton{\n"
-"\n"
-"background-color: rgba(255, 255, 255, 0);\n"
-"border-radius: 25px;\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"\n"
-"	\n"
-"	\n"
-"	\n"
-"	\n"
-"	background-color: rgb(255, 255, 255);\n"
-"}")
-        self.btn_home_2.setIcon(icon6)
+        icon7 = QIcon()
+        icon7.addFile(u"resources/home_new.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_home_2.setIcon(icon7)
         self.btn_home_2.setIconSize(QSize(35, 35))
         self.textBrowser = QTextBrowser(self.page_3)
         self.textBrowser.setObjectName(u"textBrowser")
-        self.textBrowser.setGeometry(QRect(40, 100, 741, 291))
-        self.textBrowser.setStyleSheet(u"QTextBrowser{\n"
+        self.textBrowser.setGeometry(QRect(50, 250, 711, 171))
+        self.textBrowser.setFont(font3)
+        self.textBrowser.setStyleSheet(u"\n"
+"QTextBrowser{\n"
 "\n"
 "\n"
 "background:transparent;\n"
@@ -391,9 +570,9 @@ class Ui_MainWindow(object):
 "}\n"
 "QScrollBar::sub-line:vertical:hover {	\n"
 "	\n"
-"	background-color: rgb(80, 80, 122);\n"
-""
-                        "}\n"
+"	background-color: rgb(80, 80, 122);"
+                        "\n"
+"}\n"
 "QScrollBar::sub-line:vertical:pressed {	\n"
 "	background-color: rgb(185, 0, 92);\n"
 "}\n"
@@ -424,67 +603,224 @@ class Ui_MainWindow(object):
 "QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {\n"
 "	background: none;\n"
 "}")
-        self.label_6 = QLabel(self.page_3)
-        self.label_6.setObjectName(u"label_6")
-        self.label_6.setGeometry(QRect(690, 530, 21, 21))
-        self.label_6.setStyleSheet(u"QLabel{\n"
-"\n"
-"background:transparent;\n"
-"\n"
-"}")
-        self.label_6.setPixmap(QPixmap(u"resources/twitter_round.svg"))
-        self.label_6.setScaledContents(True)
-        self.label_7 = QLabel(self.page_3)
-        self.label_7.setObjectName(u"label_7")
-        self.label_7.setGeometry(QRect(730, 530, 21, 21))
-        self.label_7.setStyleSheet(u"QLabel{\n"
-"\n"
-"background:transparent;\n"
-"\n"
-"}")
-        self.label_7.setPixmap(QPixmap(u"resources/GitHub-Mark-Light-64px.png"))
-        self.label_7.setScaledContents(True)
-        self.label_5 = QLabel(self.page_3)
-        self.label_5.setObjectName(u"label_5")
-        self.label_5.setGeometry(QRect(770, 530, 21, 21))
-        self.label_5.setStyleSheet(u"QLabel{\n"
-"\n"
-"background:transparent;\n"
-"\n"
-"}")
-        self.label_5.setPixmap(QPixmap(u"resources/telegram.svg"))
-        self.label_5.setScaledContents(True)
-        self.label = QLabel(self.page_3)
-        self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(50, 500, 191, 41))
-        self.label.setStyleSheet(u"QLabel{\n"
+        self.fsf = QLabel(self.page_3)
+        self.fsf.setObjectName(u"fsf")
+        self.fsf.setGeometry(QRect(50, 430, 221, 51))
+        self.fsf.setStyleSheet(u"QLabel{\n"
 "background:transparent;\n"
 "}")
-        self.label.setPixmap(QPixmap(u"resources/fsf-free-software-foundation.svg"))
-        self.label.setScaledContents(True)
-        self.label_3 = QLabel(self.page_3)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setGeometry(QRect(650, 530, 21, 21))
-        self.label_3.setStyleSheet(u"QLabel{\n"
+        self.fsf.setPixmap(QPixmap(u"resources/fsf-free-software-foundation.png"))
+        self.fsf.setScaledContents(True)
+        self.lgpl_3 = QLabel(self.page_3)
+        self.lgpl_3.setObjectName(u"lgpl_3")
+        self.lgpl_3.setGeometry(QRect(320, 420, 161, 61))
+        self.lgpl_3.setStyleSheet(u"QLabel{\n"
 "\n"
 "\n"
 "background:transparent;\n"
 "\n"
+"\n"
 "}")
-        self.label_3.setPixmap(QPixmap(u"resources/Reddit Logo/On White/PNG/Reddit_Mark_OnWhite.png"))
-        self.label_3.setScaledContents(True)
+        self.lgpl_3.setPixmap(QPixmap(u"resources/LGPLv3_Logo.png"))
+        self.lgpl_3.setScaledContents(True)
+        self.reddit_Btn = QPushButton(self.page_3)
+        self.reddit_Btn.setObjectName(u"reddit_Btn")
+        self.reddit_Btn.setGeometry(QRect(590, 510, 30, 30))
+        self.reddit_Btn.setStyleSheet(u"QPushButton{\n"
+"\n"
+"\n"
+"background:transparent;\n"
+"border-radius:15px;\n"
+"\n"
+"\n"
+"}\n"
+"QPushButton:hover{\n"
+"\n"
+"\n"
+"	\n"
+"	background-color: rgb(255, 69, 0);\n"
+"\n"
+"\n"
+"}\n"
+"QPushButton:pressed{\n"
+"	background-color: rgb(255, 150, 112);\n"
+"\n"
+"}")
+        icon8 = QIcon()
+        icon8.addFile(u"resources/Reddit_Mark_OnWhite.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.reddit_Btn.setIcon(icon8)
+        self.reddit_Btn.setIconSize(QSize(20, 20))
+        self.tweet_Btn = QPushButton(self.page_3)
+        self.tweet_Btn.setObjectName(u"tweet_Btn")
+        self.tweet_Btn.setGeometry(QRect(640, 510, 30, 30))
+        self.tweet_Btn.setStyleSheet(u"QPushButton{\n"
+"\n"
+"\n"
+"background:transparent;\n"
+"border-radius:15px;\n"
+"\n"
+"\n"
+"}\n"
+"QPushButton:hover{\n"
+"\n"
+"\n"
+"	\n"
+"	\n"
+"	background-color: rgb(28, 183, 235);\n"
+"\n"
+"\n"
+"}\n"
+"QPushButton:pressed{\n"
+"	\n"
+"	background-color: rgb(215, 242, 251);\n"
+"\n"
+"}")
+        icon9 = QIcon()
+        icon9.addFile(u"resources/twitter_round.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.tweet_Btn.setIcon(icon9)
+        self.tweet_Btn.setIconSize(QSize(20, 20))
+        self.insta_Btn = QPushButton(self.page_3)
+        self.insta_Btn.setObjectName(u"insta_Btn")
+        self.insta_Btn.setGeometry(QRect(740, 510, 30, 30))
+        self.insta_Btn.setStyleSheet(u"QPushButton{\n"
+"\n"
+"\n"
+"background:transparent;\n"
+"border-radius:15px;\n"
+"\n"
+"\n"
+"}\n"
+"QPushButton:hover{\n"
+"\n"
+"\n"
+"	\n"
+"	\n"
+"	background-color: rgb(219, 125, 75);\n"
+"\n"
+"\n"
+"}\n"
+"QPushButton:pressed{\n"
+"	\n"
+"	background-color: rgb(245, 168, 20);\n"
+"\n"
+"}")
+        icon10 = QIcon()
+        icon10.addFile(u"resources/insta_round.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.insta_Btn.setIcon(icon10)
+        self.insta_Btn.setIconSize(QSize(20, 20))
+        self.git_Btn = QPushButton(self.page_3)
+        self.git_Btn.setObjectName(u"git_Btn")
+        self.git_Btn.setGeometry(QRect(690, 510, 30, 30))
+        self.git_Btn.setStyleSheet(u"QPushButton{\n"
+"\n"
+"\n"
+"background:transparent;\n"
+"border-radius:15px;\n"
+"\n"
+"\n"
+"}\n"
+"QPushButton:hover{\n"
+"\n"
+"\n"
+"	\n"
+"	\n"
+"	\n"
+"	background-color: rgb(0, 0, 0);\n"
+"\n"
+"\n"
+"}\n"
+"QPushButton:pressed{\n"
+"	background-color: rgb(124, 149, 180);\n"
+"\n"
+"}")
+        icon11 = QIcon()
+        icon11.addFile(u"resources/GitHub-Mark-Light-64px.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.git_Btn.setIcon(icon11)
+        self.git_Btn.setIconSize(QSize(20, 20))
+        self.mail_Btn = QPushButton(self.page_3)
+        self.mail_Btn.setObjectName(u"mail_Btn")
+        self.mail_Btn.setGeometry(QRect(550, 460, 201, 23))
+        font7 = QFont()
+        font7.setFamily(u"AvenirNext LT Pro Regular")
+        font7.setPointSize(11)
+        self.mail_Btn.setFont(font7)
+        self.mail_Btn.setStyleSheet(u"QPushButton{\n"
+"\n"
+"background:transparent;\n"
+"	color: rgb(255, 255, 255);\n"
+"\n"
+"\n"
+"}")
+        self.site = QPushButton(self.page_3)
+        self.site.setObjectName(u"site")
+        self.site.setGeometry(QRect(540, 510, 30, 30))
+        self.site.setStyleSheet(u"QPushButton{\n"
+"\n"
+"\n"
+"background:transparent;\n"
+"border-radius:15px;\n"
+"\n"
+"\n"
+"}\n"
+"QPushButton:hover{\n"
+"\n"
+"\n"
+"	\n"
+"	\n"
+"	background-color: rgb(255, 170, 32);\n"
+"\n"
+"\n"
+"}\n"
+"QPushButton:pressed{\n"
+"	\n"
+"	background-color: rgb(255, 255, 127);\n"
+"\n"
+"}")
+        icon12 = QIcon()
+        icon12.addFile(u"resources/www.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.site.setIcon(icon12)
+        self.site.setIconSize(QSize(25, 25))
         self.label_2 = QLabel(self.page_3)
         self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(290, 490, 131, 51))
+        self.label_2.setGeometry(QRect(40, 100, 131, 31))
+        self.label_2.setFont(font3)
         self.label_2.setStyleSheet(u"QLabel{\n"
-"\n"
 "\n"
 "background:transparent;\n"
 "\n"
+"}")
+        self.label_2.setAlignment(Qt.AlignCenter)
+        self.label_3 = QLabel(self.page_3)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setGeometry(QRect(50, 150, 301, 31))
+        self.label_3.setFont(font3)
+        self.label_3.setStyleSheet(u"QLabel{\n"
+"\n"
+"background:transparent;\n"
 "\n"
 "}")
-        self.label_2.setPixmap(QPixmap(u"resources/LGPLv3_Logo.svg"))
-        self.label_2.setScaledContents(True)
+        self.label_3.setAlignment(Qt.AlignCenter)
+        self.mail_Btn_2 = QPushButton(self.page_3)
+        self.mail_Btn_2.setObjectName(u"mail_Btn_2")
+        self.mail_Btn_2.setGeometry(QRect(70, 510, 381, 23))
+        self.mail_Btn_2.setFont(font7)
+        self.mail_Btn_2.setStyleSheet(u"QPushButton{\n"
+"\n"
+"background:transparent;\n"
+"	color: rgb(255, 255, 255);\n"
+"\n"
+"\n"
+"}")
+        self.label_4 = QLabel(self.page_3)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setGeometry(QRect(50, 180, 351, 91))
+        self.label_4.setFont(font3)
+        self.label_4.setStyleSheet(u"QLabel{\n"
+"\n"
+"background:transparent;\n"
+"\n"
+"}")
+        self.label_4.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.stackedWidget.addWidget(self.page_3)
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -507,12 +843,13 @@ class Ui_MainWindow(object):
         self.miniNew.setToolTip(QCoreApplication.translate("MainWindow", u"minimize", None))
 #endif // QT_CONFIG(tooltip)
         self.miniNew.setText("")
+        self.ref.setText("")
         self.back_img_1.setText("")
 #if QT_CONFIG(tooltip)
         self.connect_Btn.setToolTip(QCoreApplication.translate("MainWindow", u"CONNECT", None))
 #endif // QT_CONFIG(tooltip)
         self.connect_Btn.setText("")
-        self.ip_label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:11pt; color:#ffffff;\">CURRENT IP :</span></p></body></html>", None))
+        self.crnt_ip.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><br/></p></body></html>", None))
         self.tor_label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:11pt; color:#ffffff;\">TOR</span></p></body></html>", None))
         self.Tor_Btn.setText("")
         self.speed_label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:11pt; color:#ffffff;\">SPEED TEST</span></p></body></html>", None))
@@ -521,28 +858,41 @@ class Ui_MainWindow(object):
         self.off_btn.setToolTip(QCoreApplication.translate("MainWindow", u"DISCONNECT", None))
 #endif // QT_CONFIG(tooltip)
         self.off_btn.setText("")
+        self.sp_label.setText("")
+        self.time_label.setText("")
         self.btn_about.setText("")
-        self.btn_faq.setText("")
-        self.back_img_2.setText("")
-        self.btn_home_1.setText("")
+        self.label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:11pt; color:#ffffff;\">About</span></p></body></html>", None))
+        self.except_lbl.setText("")
+        self.dwnld_label.setText("")
+        self.upnld_label.setText("")
+        self.su_label.setText("")
+        self.C_label.setText("")
+        self.pop_btn.setText("")
+        self.pop_label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:12pt; color:#cf0040;\">ACTIVATED</span></p></body></html>", None))
+        self.ext_btn.setText("")
         self.back_img_3.setText("")
         self.btn_home_2.setText("")
         self.textBrowser.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#ffffff;\">Here in this we are providing network level protection for all users that connect with our  Q VPN. it  is intended to generate user friendly VPN without interrupting their browsing with no compromise in the protection of data and privacy.</span></p>\n"
-"<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:12pt; color:#ffffff;\"><br /></p>\n"
-"<p align=\"justify\" style=\" "
-                        "margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#ffffff;\">		In this application we are using the Wireguard protocol to connect with the server. The WireGuard is an extremely fast VPN protocol with very little overhead. It has the potential to offer a simpler, more secure, more efficient, and easier to use VPN over existing technologies. The WireGuard protocol is 58% faster than the OpenVPN protocol and also the Wireguard is extremely stable and robust. It can easily switch the server while maintaining the connection. Clients can also change the networks without dropping the connection. Rather than other VPN protocols the WireGuard protocol has fewer codes to establish the connection. And also the WireGuard\u2019s performance improvement over OpenVPN is greater with low latency servers in comparison to high latency server locations. </span></p>\n"
-"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; m"
-                        "argin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#ffffff;\">		</span></p>\n"
-"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; color:#ffffff;\">		The next main feature of our \u201c Q \u201c, is we are providing the TOR service along with the VPN service. The user can decide whether he/she wants to connect the internet using VPN or TOR. Default we are connecting with the VPN but if the user wants to switch to TOR service, they only want to click the TOR button. TOR is useful for anyone who wants to keep their internet activities out of the hands of advertisers, ISPs, and websites.</span></p></body></html>", None))
-        self.label_6.setText("")
-        self.label_7.setText("")
-        self.label_5.setText("")
-        self.label.setText("")
-        self.label_3.setText("")
-        self.label_2.setText("")
+"</style></head><body style=\" font-family:'AvenirNext LT Pro Bold'; font-size:8.25pt; font-weight:600; font-style:normal;\">\n"
+"<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-weight:400;\"><br /></p>\n"
+"<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; color:#ffffff;\"><br /></p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-s"
+                        "ize:12pt; font-weight:400; color:#ffffff;\">Q VPN is a vpn that uses WireGuard protocol. It is intended to generate user friendly VPN without interrupting your browsing with no compromise in the protection of your data and privacy.</span></p>\n"
+"<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; color:#ffffff;\"><br /></p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; color:#ffffff;\">Developed using PySide2 and Python3.</span></p></body></html>", None))
+        self.fsf.setText("")
+        self.lgpl_3.setText("")
+        self.reddit_Btn.setText("")
+        self.tweet_Btn.setText("")
+        self.insta_Btn.setText("")
+        self.git_Btn.setText("")
+        self.mail_Btn.setText(QCoreApplication.translate("MainWindow", u"incinfoquest@gmail.com", None))
+        self.site.setText("")
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:12pt; color:#ffffff;\">Q VPN Project</span></p></body></html>", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-family:'MS Shell Dlg 2'; font-size:12pt; color:#ffffff;\">A VPN that uses WireGuard protocol</span></p></body></html>", None))
+        self.mail_Btn_2.setText(QCoreApplication.translate("MainWindow", u"Copyright \u00a9 2021 incinfoquest - All Rights Reserved.", None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-family:'MS Shell Dlg 2'; font-size:12pt; color:#ffffff;\">Developed by:</span></p><p align=\"justify\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:12pt; color:#ffffff;\">Anandan S, Omar Fayadh D, Sreerag S.</span></p></body></html>", None))
     # retranslateUi
 

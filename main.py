@@ -1,15 +1,18 @@
-#  [MAIN FILE]
-# ______________________________________________________________
-# PRODUCT : Q VPN
-
-# NAME    : main.py [UI STARTS]
-
-# AUTHORS : ANANDAN , OMAR , SREERAG
-# _______________________________________________________________
+# ______________________________________________________________|
+#                                                               |
+# [MAIN FILE]                                                   |
+# ______________________________________________________________|
+# PRODUCT : Q VPN                                               |
+#                                                               |
+# NAME    : main.py [UI STARTS]                                 |
+#                                                               |
+# AUTHORS : ANANDAN , OMAR , SREERAG                            |
+# ______________________________________________________________|
 
 
 import sys
 import platform
+
 # from PyQt5.QtCore import *
 # from PyQt5.QtWebEngineWidgets import *
 # from PyQt5.QtWidgets import QApplication
@@ -24,6 +27,12 @@ import threading
 import os
 import requests
 import speedtest
+from datetime import datetime
+from selenium import webdriver
+from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
+from win10toast import ToastNotifier
+import time
+
 
 ## SPLASH SCREEN
 from ui_splash_screen import Ui_splashscreen
@@ -101,30 +110,49 @@ class splashscreen(QMainWindow):
 class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
-        buffer = 0
+
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        #self.ui.connect_Btn.setCheckable(True)
+
+
         self.ui.connect_Btn.clicked.connect(self.on_click)
         self.ui.Tor_Btn.clicked.connect(self.on_Tor)
         self.ui.speed_Test.clicked.connect(self.check_speed)
+        self.ui.pop_btn.clicked.connect(self.popup)
+        self.ui.reddit_Btn.clicked.connect(lambda: webbrowser.open('https://www.reddit.com/user/InQuest_inc'))
+        self.ui.tweet_Btn.clicked.connect(lambda: webbrowser.open('https://twitter.com/Info43913522'))
+        self.ui.git_Btn.clicked.connect(lambda: webbrowser.open('https://github.com/incinfoquest'))
+        self.ui.insta_Btn.clicked.connect(lambda: webbrowser.open('https://www.instagram.com/inquest_inc/'))
+        self.ui.mail_Btn.clicked.connect(lambda: webbrowser.open('https://mail.google.com/mail/u/0/#inbox?compose=new'))
+        self.ui.site.clicked.connect(lambda: webbrowser.open('https://incinfoquest.godaddysites.com'))
+        self.ui.ref.clicked.connect(self.refresh)
+        self.ui.dwnld_label.hide()
+        self.ui.C_label.setHidden(True)
+        self.ui.upnld_label.hide()
+        self.ui.pop_btn.setEnabled(False)
+        self.ui.pop_btn.setHidden(True)
+        self.ui.pop_label.hide()
+        self.timer = QtCore.QTimer()
+        self.t = ToastNotifier()
+        # Checking the test.txt file is empty or not for status finding
 
-        # PAGE 2
-        self.ui.btn_faq.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_2))
+        self.fi = "test.txt"
+        if os.stat(self.fi).st_size != 0:
+            self.st_thread()
+
+        # STACK
 
         # PAGE 3
         self.ui.btn_about.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_3))
 
-        # FROM PAGE_2 to PAGE_1
-        self.ui.btn_home_1.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_1))
-
         # FROM PAGE_3 to PAGE_1
         self.ui.btn_home_2.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_1))
-
         # DISPLAY IP ADDRESS WHEN MAIN WINDOW IS LOADED
         self.on_ip()
 
         # WG OFF BUTTON
-        self.ui.off_btn.clicked.connect(self.wgDown)
+        self.ui.off_btn.clicked.connect(self.on_Down)
 
         # REMOVE TITLE BAR
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
@@ -134,71 +162,170 @@ class MainWindow(QMainWindow):
         self.ui.miniNew.clicked.connect(lambda: self.showMinimized())
         self.ui.closeNew.clicked.connect(lambda: self.close())
 
-        # MOVE WINDOW
-        def moveWindow(event):
-            # IF LEFT CLICK MOVE WINDOW
-            if event.buttons() == Qt.LeftButton:
-                self.move(self.pos() + event.globalPos() - self.dragPos)
-                self.dragPos = event.globalPos()
-                event.accept()
-
         # SET TITLE BAR
-        self.ui.top_bar.mouseMoveEvent = moveWindow
+        self.ui.top_bar.mouseMoveEvent = self.moveWindow
 
-    def on_click(self):
 
-        # To disable the button
+# Status Checking Thread
+    def st_thread(self):
+
+        self.disconnectThread = threading.Thread(target=self.status)
+        self.disconnectThread.start()
+
+    # Changing the status of the Wg is up
+    def status(self):
         self.ui.connect_Btn.setEnabled(False)
         self.ui.off_btn.show()
         self.ui.off_btn.setEnabled(True)
+        self.ui.ext_btn.clear()
+        self.ui.connect_Btn.hide()
+        self.ui.pop_btn.setHidden(False)
 
-        # THREADING
-        self.connectThread = threading.Thread(target=self.wgConnect)
-        self.connectThread.start()
+        self.ui.pop_btn.setEnabled(True)
+        self.ui.pop_label.show()
+
+        self.ui.C_label.setHidden(True)
+
+
+
+# To check the Network is on
+    def checkInternetRequests(self, url='http://www.google.com/', timeout=3):
+        try:
+            self.ui.except_lbl.clear()
+            r = requests.head(url, timeout=timeout)
+            print(r)
+            return True
+        except:
+            self.ui.except_lbl.setText("Check Your Network Connection")
+            playsound('beep_beep.mp3')
+
+# Refreshing the labels
+    def refresh(self):
+        self.ui.ext_btn.clear()
+        self.ui.crnt_ip.clear()
+        self.on_ip()
+        self.ui.except_lbl.clear()
+        self.ui.su_label.clear()
+        self.ui.sp_label.clear()
+        self.ui.dwnld_label.hide()
+        self.ui.upnld_label.hide()
+        self.ui.time_label.hide()
+        self.ui.C_label.hide()
+
+
+    def time_convert(self, sec):
+        mins = sec // 60
+        sec = sec % 60
+        hours = mins // 60
+        mins = mins % 60
+        print("Time Lapsed = {0}:{1}:{2}".format(int(hours),int(mins),int(sec)))
+        ti = "{0}:{1}:{2}".format(int(hours),int(mins),int(sec))
+        self.ui.C_label.setHidden(False)
+        self.ui.time_label.show()
+        self.ui.time_label.setText("Connection Time " + ti)
+
+    def on_click(self):
+        # checking network connection
+
+         if self.checkInternetRequests():
+
+            self.ui.time_label.clear()
+            playsound('message_dot.mp3')
+
+            # THREADING
+            self.connectThread = threading.Thread(target=self.wgConnect)
+            self.connectThread.start()
+
 
         # Wg UP
-
     def wgConnect(self):
-        process = Popen(['wg-quick', 'up', 'wg1'], stdout=PIPE,
+
+        self.st_thread()
+        process = Popen(["C:\Program Files\Q VPN\WireGuard\wireguard.exe", '/installtunnelservice',
+                         "C:\Program Files\Q VPN\WireGuard\Data\Configurations\wg1.conf.dpapi"], stdout=PIPE,
+
                         encoding='utf-8')
+
         print("CONNECTED")
 
         # TO PRINT IP AFTER WG IS CONNECTED
         self.on_ip()
-        self.ui.connect_Btn.hide()
+        # windows notifying
+        self.t.show_toast("Q VPN","VPN Connected Successfully", icon_path="icon-console.ico",duration=3)
+        # Writing the starting ip to the test.txt
+        f = open ("test.txt", 'w', encoding = 'utf-8')
+        self.start_time = time.time()
+        # to store the value as in Floating point
+        f.write('%f'%self.start_time)
+
+
+    def on_Down(self):
+         self.ui.pop_btn.setHidden(True)
+         self.ui.pop_btn.setEnabled(False)
+         self.ui.pop_label.hide()
+         playsound('off.mp3')
+         # open the test.txt file in read mode
+         with open ("test.txt", 'r', encoding = 'utf-8') as f:
+             self.start_time  = f.read()
+             print(self.start_time)
+         self.end_time = time.time()
+         self.time_lapsed = self.end_time - float(self.start_time)
+         self.time_convert(self.time_lapsed)
+         self.ui.pop_btn.setEnabled(False)
+         self.disconnectThread = threading.Thread(target=self.wgDown)
+         self.disconnectThread.start()
+
 
     # WG DOWN
     def wgDown(self):
         self.ui.off_btn.setEnabled(False)
         process = Popen(['wg-quick', 'down', 'wg1'], stdout=PIPE,
+
+
+        process = Popen(["C:\Program Files\Q VPN\WireGuard\wireguard.exe", '/uninstalltunnelservice', "wg1"], stdout=PIPE,
                         encoding='utf-8')
         print("SESSION ENDED")
         self.ui.off_btn.hide()
         self.ui.connect_Btn.setEnabled(True)
         self.ui.connect_Btn.show()
+        self.on_ip()
+        self.t.show_toast("Q VPN","VPN DisConnected Successfully", icon_path="icon-console.ico",duration=3)
+        # To clear the test.txt contents
+        with open("test.txt", 'r+') as f:
+            f.truncate(0)
+
 
     # IP THREAD
     def on_ip(self):
         self.ip_Thread = threading.Thread(target=self.run)
-        # self.ip_thread.out_string.connect(self.printIP)
         self.ip_Thread.start()
 
     # FETCH IP
     def run(self):
-        self.ui.iptext.clear()
+        self.ui.crnt_ip.setText("FETCHING IP")
+        time.sleep(10)
+
+
         try:
             ipaddress = requests.get("http://ipecho.net/plain?").text
             print(ipaddress)
+            self.ui.crnt_ip.clear()
+            self.ui.crnt_ip.setText("CURRENT IP :")
+            self.ui.ext_btn.clear()
+            self.ui.ext_btn.setText(ipaddress)
 
-            try:
-                # self.ui.iptext.
-                self.ui.iptext.appendPlainText(ipaddress)
-                # Enabling the connect button
-                #
-            except:
-                print("Please wait")
         except:
-            print("Check your internet Connection")
+            try:
+                ipaddress = requests.get("http://ipconfig.in/ip").text
+                print(ipaddress)
+                self.ui.crnt_ip.clear()
+                self.ui.crnt_ip.setText("CURRENT IP :")
+                self.ui.ext_btn.clear()
+                self.ui.ext_btn.setText(ipaddress)
+            except:
+                print("Check your internet Connection")
+                playsound('beep_beep.mp3')
+                self.ui.except_lbl.setText("Check Your Network Connection")
 
     # TOR THREAD
     def on_Tor(self):
@@ -211,31 +338,70 @@ class MainWindow(QMainWindow):
         process = Popen(['sudo', 'service', 'start',  'tor'])
         print("tor successfully connected")
         self.on_ip()
+####
+        torexe = os.popen(r'C:\Program Files\Q VPN\Tor Browser\Browser\firefox.exe')
+        self.showMinimized()
+
+# pi hole Adblocking window
+    def popup(self):
+        self.pop_Thread = threading.Thread(target=self.pop)
+        self.pop_Thread.start()
+
+
+    def pop(self):
+        os.system('python pop.py')
 
     # SPEED_TEST THREAD
     def check_speed(self):
         self.speedThread = threading.Thread(target=self.get_speedTest)
         self.speedThread.start()
 
+
     # GET INTERNET SPEED
     def get_speedTest(self):
         try:
+
             speed = speedtest.Speedtest()
+            self.ui.except_lbl.clear()
+            self.ui.su_label.clear()
             print("processing..........")
-            # self.process.terminate()
-            # print("processing..........")
-            sp = speed.download() / 1024 / 1024
-            print(sp)
+
+            # Download Speed
+            self.ui.dwnld_label.show()
+            self.ui.sp_label.setText("Retrieving Download")
+            sp = "{:.2f}".format(speed.download()/ 1024/ 1024)
+            print(sp + " mb/s")
+            self.ui.sp_label.setText(sp + " Mbps ")
+
+            # Upload Speed
+            self.ui.upnld_label.show()
+            self.ui.su_label.clear()
+            self.ui.su_label.setText("Retrieving Upload")
+            su = "{:.2f}".format(speed.upload()/ 1024/ 1024)
+            print(su + "mb/s")
+            self.ui.su_label.setText(su + " Mbps ")
 
         except:
-            print('check your internet connection for speed test')
+            print("check your internet connection for speed test")
+            playsound('beep_beep.mp3')
+            self.ui.except_lbl.setText("Check Your Network Connection")
+
+
+        # MOVE WINDOW
+    def moveWindow(self, event):
+        # IF LEFT CLICK MOVE WINDOW
+        if event.buttons() == Qt.LeftButton:
+            self.move(self.pos() + event.globalPos() - self.dragPos)
+            self.dragPos = event.globalPos()
+            event.accept()
 
     # APP EVENTS [DRAG MAIN WINDOW]
-
     def mousePressEvent(self, event):
         self.dragPos = event.globalPos()
 
-# EXIT
+
+
+    # EXIT
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = splashscreen()

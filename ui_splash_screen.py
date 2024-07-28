@@ -5,13 +5,13 @@
 
 # AUTHORS : ANANDAN , OMAR , SREERAG
 
-# CHANGES IN THIS FILE ARE PROHIBITED
+# CHANGES TO THIS FILE ARE PROHIBITED
 # _______________________________________________________________
 
 
-from PySide6.QtCore import *
-from PySide6.QtGui import *
-from PySide6.QtWidgets import *
+from PySide2.QtCore import *
+from PySide2.QtGui import *
+from PySide2.QtWidgets import *
 
 
 class Ui_splashscreen(object):
