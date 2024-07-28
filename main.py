@@ -12,13 +12,17 @@
 
 import sys
 import platform
-from PySide2 import QtCore, QtGui, QtWidgets
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
-from subprocess import Popen, PIPE
-from playsound import playsound
-import webbrowser
+
+# from PyQt5.QtCore import *
+# from PyQt5.QtWebEngineWidgets import *
+# from PyQt5.QtWidgets import QApplication
+from PySide6 import QtCore, QtGui, QtWidgets
+from PySide6.QtCore import (QCoreApplication, QPropertyAnimation, QDate, QDateTime, QMetaObject, QObject, QPoint, QRect,
+                            QSize, QTime, QUrl, Qt, QEvent)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFontDatabase, QIcon, QKeySequence,
+                           QLinearGradient, QPalette, QPainter, QPixmap, QRadialGradient)
+from PySide6.QtWidgets import *
+from subprocess import *
 import threading
 import os
 import requests
@@ -235,9 +239,11 @@ class MainWindow(QMainWindow):
 
         # Wg UP
     def wgConnect(self):
+
         self.st_thread()
         process = Popen(["C:\Program Files\Q VPN\WireGuard\wireguard.exe", '/installtunnelservice',
                          "C:\Program Files\Q VPN\WireGuard\Data\Configurations\wg1.conf.dpapi"], stdout=PIPE,
+
                         encoding='utf-8')
 
         print("CONNECTED")
@@ -272,6 +278,9 @@ class MainWindow(QMainWindow):
 
     # WG DOWN
     def wgDown(self):
+        self.ui.off_btn.setEnabled(False)
+        process = Popen(['wg-quick', 'down', 'wg1'], stdout=PIPE,
+
 
         process = Popen(["C:\Program Files\Q VPN\WireGuard\wireguard.exe", '/uninstalltunnelservice', "wg1"], stdout=PIPE,
                         encoding='utf-8')
@@ -325,6 +334,10 @@ class MainWindow(QMainWindow):
 
     # TOR CONNECTION
     def torConnect(self):
+        buffer = 1
+        process = Popen(['sudo', 'service', 'start',  'tor'])
+        print("tor successfully connected")
+        self.on_ip()
 ####
         torexe = os.popen(r'C:\Program Files\Q VPN\Tor Browser\Browser\firefox.exe')
         self.showMinimized()
@@ -337,7 +350,6 @@ class MainWindow(QMainWindow):
 
     def pop(self):
         os.system('python pop.py')
-
 
     # SPEED_TEST THREAD
     def check_speed(self):
